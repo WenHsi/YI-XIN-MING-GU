@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毅心鳴鼓 — 品牌識別系統</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A1208;
+    --vermillion: #C0392B;
+    --gold: #B8922A;
+    --gold-light: #D4A843;
+    --parchment: #F5EDD8;
+    --parchment-dark: #EDE0C4;
+    --ash: #6B6357;
+    --smoke: #E8DFC8;
+    --white: #FDFAF4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 40px;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(192,57,43,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(184,146,42,0.08) 0%, transparent 50%);
+  }
+
+  .cover-drum-bg {
+    position: absolute;
+    font-size: 320px;
+    color: rgba(192,57,43,0.04);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    line-height: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: -20px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-weight: 400;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cover-label::before, .cover-label::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .cover-name-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    line-height: 1.1;
+    color: var(--white);
+    position: relative;
+    text-align: center;
+  }
+
+  .cover-name-zh span { color: var(--vermillion); }
+
+  .cover-name-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2vw, 20px);
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-top: 16px;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+  }
+
+  .cover-slogan {
+    margin-top: 32px;
+    position: relative;
+    text-align: center;
+  }
+
+  .cover-slogan-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: var(--parchment-dark);
+    line-height: 1.8;
+  }
+
+  /* Highlight the hidden characters */
+  .cover-slogan-zh .hi-yi { color: var(--vermillion); font-weight: 900; }
+  .cover-slogan-zh .hi-xin { color: var(--gold-light); font-weight: 900; }
+  .cover-slogan-zh .hi-ming { color: var(--vermillion); font-weight: 900; }
+  .cover-slogan-zh .hi-gu { color: var(--gold-light); font-weight: 900; }
+
+  .cover-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 32px auto;
+    position: relative;
+  }
+
+  .doc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--ash);
+    letter-spacing: 0.25em;
+    position: relative;
+    text-align: center;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    animation: float 2s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+  }
+
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  .scroll-label { font-size: 9px; letter-spacing: 3px; color: var(--gold); }
+
+  /* SECTIONS */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    opacity: 0.8;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 48px; height: 2px;
+    background: var(--vermillion);
+  }
+
+  .section-intro {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--parchment-dark);
+    margin-bottom: 40px;
+    max-width: 660px;
+  }
+
+  /* ─── SLOGAN SECTION ─── */
+  .slogan-hero {
+    padding: 56px 48px;
+    background: rgba(192,57,43,0.05);
+    border: 1px solid rgba(192,57,43,0.18);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
+
+  .slogan-hero::before {
+    content: '鼓';
+    position: absolute;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 260px;
+    font-weight: 900;
+    color: rgba(192,57,43,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  .slogan-tag {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .slogan-main-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(22px, 4vw, 40px);
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: var(--white);
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .slogan-highlight-red { color: var(--vermillion); }
+  .slogan-highlight-gold { color: var(--gold-light); }
+
+  .slogan-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2vw, 20px);
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-top: 16px;
+    position: relative;
+  }
+
+  /* Hidden characters reveal */
+  .hidden-chars-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .hc-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hc-char {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .hc-char-red { color: var(--vermillion); }
+  .hc-char-gold { color: var(--gold-light); }
+
+  .hc-arrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ash);
+    margin-bottom: 6px;
+  }
+
+  .hc-source {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .hc-source span.em { color: var(--vermillion); }
+  .hc-source span.em-gold { color: var(--gold-light); }
+
+  .hc-meaning {
+    font-size: 11px;
+    color: var(--ash);
+    line-height: 1.8;
+  }
+
+  /* ─── PHILOSOPHY SECTION ─── */
+  .cycle-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+
+  .cycle-node {
+    text-align: center;
+    padding: 28px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    min-width: 160px;
+    position: relative;
+  }
+
+  .cycle-node-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .cycle-node-char {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .cycle-node-char.red { color: var(--vermillion); }
+  .cycle-node-char.gold { color: var(--gold-light); }
+
+  .cycle-node-zh {
+    font-size: 13px;
+    color: var(--parchment-dark);
+    line-height: 1.8;
+  }
+
+  .cycle-arrow {
+    font-size: 20px;
+    color: var(--vermillion);
+    padding: 0 8px;
+    opacity: 0.7;
+    align-self: center;
+  }
+
+  .cycle-loop {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--vermillion);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--vermillion);
+    margin: 0 8px;
+    flex-shrink: 0;
+    align-self: center;
+    opacity: 0.8;
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 32px;
+  }
+
+  .compare-card {
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .compare-brand {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .compare-formula {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .compare-formula span.plus { color: var(--ash); font-size: 14px; margin: 0 6px; }
+  .compare-formula span.red { color: var(--vermillion); }
+  .compare-formula span.gold { color: var(--gold-light); }
+
+  .compare-desc {
+    font-size: 13px;
+    line-height: 2;
+    color: var(--ash);
+  }
+
+  /* NAME ANALYSIS */
+  .name-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--vermillion);
+    padding: 32px;
+    margin-bottom: 2px;
+  }
+
+  .name-char {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--vermillion);
+    float: left;
+    margin-right: 20px;
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  .name-char.gold { color: var(--gold-light); }
+
+  .name-meaning {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .name-desc {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--parchment-dark);
+    overflow: hidden;
+  }
+
+  .name-slogan-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ash);
+    background: rgba(255,255,255,0.04);
+    padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 1px;
+  }
+
+  .name-slogan-link span { color: var(--vermillion); }
+
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  /* POSITIONING */
+  .position-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    margin-top: 32px;
+  }
+
+  .position-card {
+    background: rgba(255,255,255,0.02);
+    padding: 28px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.3s;
+  }
+
+  .position-card:hover { background: rgba(255,255,255,0.05); }
+  .position-icon { font-size: 26px; margin-bottom: 12px; }
+  .position-label { font-size: 9px; letter-spacing: 4px; color: var(--gold); margin-bottom: 10px; font-weight: 500; }
+  .position-value { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .position-desc { font-size: 13px; line-height: 1.8; color: var(--ash); }
+
+  /* COLOR SYSTEM */
+  .color-palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    margin-top: 32px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+
+  .color-swatch { padding: 0; }
+  .swatch-block { height: 120px; position: relative; display: flex; align-items: flex-end; }
+  .swatch-role { font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.6); padding: 8px 12px; font-weight: 500; text-transform: uppercase; }
+  .swatch-info { padding: 16px 14px; background: rgba(0,0,0,0.4); }
+  .swatch-name { font-family: 'Noto Serif TC', serif; font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .swatch-hex { font-size: 11px; color: var(--ash); letter-spacing: 1px; font-family: monospace; }
+  .swatch-meaning { font-size: 11px; color: var(--ash); margin-top: 4px; line-height: 1.6; }
+
+  /* TYPOGRAPHY */
+  .type-specimen {
+    margin-bottom: 2px;
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .type-label { font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+  .type-sample-zh-display { font-family: 'Noto Serif TC', serif; font-size: 42px; font-weight: 900; color: var(--white); letter-spacing: 0.1em; line-height: 1.2; }
+  .type-sample-zh-body { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 400; color: var(--parchment-dark); letter-spacing: 0.05em; line-height: 2.2; margin-top: 12px; }
+  .type-sample-en { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-style: italic; color: var(--white); letter-spacing: 0.05em; }
+  .type-meta { font-size: 12px; color: var(--ash); margin-top: 14px; line-height: 1.9; }
+
+  /* LOGO CONCEPTS */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2px;
+    margin-top: 32px;
+  }
+
+  .logo-concept {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-concept::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--vermillion), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .logo-concept:hover::before { opacity: 1; }
+
+  .logo-visual { width: 120px; height: 120px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; }
+
+  .logo-a { width: 100px; height: 100px; border: 3px solid var(--vermillion); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+  .logo-a::before { content: '鼓'; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: var(--white); }
+  .logo-a::after { content: ''; position: absolute; width: 88px; height: 88px; border: 1px solid rgba(192,57,43,0.3); border-radius: 50%; }
+
+  .logo-b { width: 100px; height: 100px; background: var(--vermillion); display: flex; align-items: center; justify-content: center; clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); }
+  .logo-b-text { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--white); text-align: center; line-height: 1.1; letter-spacing: 0.05em; }
+
+  .logo-c { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .logo-c-main { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: 0.1em; line-height: 1; }
+  .logo-c-main span { color: var(--vermillion); }
+  .logo-c-line { width: 80px; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .logo-c-sub { font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 4px; color: var(--gold); font-style: italic; }
+
+  .logo-concept-num { font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-bottom: 12px; }
+  .logo-concept-name { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .logo-concept-desc { font-size: 12px; line-height: 1.8; color: var(--ash); }
+  .recommended-badge { position: absolute; top: 12px; right: 12px; background: var(--vermillion); color: white; font-size: 9px; letter-spacing: 2px; padding: 4px 8px; font-weight: 500; }
+
+  /* MOCKUPS */
+  .mockup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 32px; }
+  .mockup-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
+  .mockup-preview { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+  .mockup-namecard { background: var(--ink); border: 1px solid rgba(255,255,255,0.1); width: 200px; height: 115px; padding: 16px 18px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+  .mockup-namecard::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--vermillion); }
+  .mc-name { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 700; color: var(--white); letter-spacing: 0.1em; }
+  .mc-title { font-size: 9px; color: var(--gold); letter-spacing: 2px; margin-top: 2px; }
+  .mc-org { font-size: 10px; color: var(--ash); letter-spacing: 1px; line-height: 1.6; }
+  .mc-slogan { font-size: 8px; color: rgba(184,146,42,0.5); letter-spacing: 1px; margin-top: 2px; }
+  .mc-seal { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; background: var(--vermillion); clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; font-size: 10px; color: white; font-weight: 900; }
+
+  .mockup-poster { background: linear-gradient(135deg, #1A1208 60%, #2D1A10); width: 130px; height: 175px; padding: 14px; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); }
+  .poster-top-line { width: 100%; height: 1px; background: var(--vermillion); margin-bottom: 8px; }
+  .poster-label { font-size: 6px; letter-spacing: 3px; color: var(--gold); margin-bottom: 6px; }
+  .poster-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--white); letter-spacing: 0.15em; line-height: 1.2; margin-bottom: 4px; }
+  .poster-title span { color: var(--vermillion); }
+  .poster-divider { width: 30px; height: 1px; background: var(--gold); margin: 8px 0; opacity: 0.5; }
+  .poster-slogan { font-size: 6px; letter-spacing: 1.5px; color: var(--parchment-dark); line-height: 1.9; }
+  .poster-slogan span { color: var(--vermillion); }
+  .poster-date { position: absolute; bottom: 12px; left: 14px; right: 14px; font-size: 7px; letter-spacing: 2px; color: var(--gold); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 6px; }
+
+  .mockup-tshirt-preview { background: #222; width: 140px; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+  .tshirt-logo { text-align: center; }
+  .tshirt-zh { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: 0.1em; margin-bottom: 4px; }
+  .tshirt-zh span { color: var(--vermillion); }
+  .tshirt-line { width: 60px; height: 1px; background: var(--gold); margin: 4px auto; opacity: 0.5; }
+  .tshirt-slogan { font-size: 7px; letter-spacing: 1.5px; color: var(--gold); line-height: 1.8; }
+
+  .mockup-label { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .mockup-label-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .mockup-label-desc { font-size: 11px; color: var(--ash); line-height: 1.7; }
+
+  /* TONE */
+  .tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 32px; }
+  .tone-card { padding: 28px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+  .tone-label { font-size: 10px; letter-spacing: 4px; margin-bottom: 16px; font-weight: 500; }
+  .tone-yes { color: var(--gold); }
+  .tone-no { color: var(--ash); opacity: 0.5; text-decoration: line-through; }
+  .tone-item { font-size: 14px; line-height: 2.2; color: var(--parchment-dark); }
+
+  /* CHECKLIST */
+  .checklist { margin-top: 32px; }
+  .checklist-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: flex-start; }
+  .check-num { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--vermillion); font-weight: 600; line-height: 1; min-width: 32px; }
+  .check-title { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .check-desc { font-size: 13px; line-height: 1.9; color: var(--ash); }
+  .check-tag { display: inline-block; font-size: 9px; letter-spacing: 2px; padding: 3px 8px; border: 1px solid; margin-top: 8px; font-weight: 500; }
+  .tag-urgent { border-color: var(--vermillion); color: var(--vermillion); }
+  .tag-medium { border-color: var(--gold); color: var(--gold); }
+  .tag-later { border-color: var(--ash); color: var(--ash); }
+
+  /* FOOTER */
+  .doc-footer { text-align: center; padding: 60px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'Noto Serif TC', serif; font-size: 24px; font-weight: 900; color: var(--white); letter-spacing: 0.2em; margin-bottom: 8px; }
+  .footer-logo span { color: var(--vermillion); }
+  .footer-slogan { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 500; color: var(--parchment-dark); letter-spacing: 0.3em; margin-bottom: 6px; }
+  .footer-slogan .hi-yi, .footer-slogan .hi-ming { color: var(--vermillion); }
+  .footer-slogan .hi-xin, .footer-slogan .hi-gu { color: var(--gold-light); }
+  .footer-en { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic; color: var(--gold); letter-spacing: 3px; margin-bottom: 24px; }
+  .footer-note { font-size: 11px; color: var(--ash); letter-spacing: 2px; }
+
+  @media (max-width: 600px) {
+    .section { padding: 60px 24px; }
+    .cover { padding: 60px 24px; }
+    .compare-grid, .tone-grid { grid-template-columns: 1fr; }
+    .hidden-chars-panel { grid-template-columns: repeat(2,1fr); }
+    .cycle-flow { flex-direction: column; gap: 2px; }
+    .cycle-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cover-drum-bg">鼓</div>
+  <div class="cover-label">品牌識別系統 · BRAND IDENTITY SYSTEM</div>
+  <div class="cover-name-zh"><span>毅心</span>鳴鼓</div>
+  <div class="cover-name-en">YI XIN MING GU Performing Arts</div>
+  <div class="cover-divider"></div>
+  <div class="cover-slogan">
+    <div class="cover-slogan-zh">
+      懷<span class="hi-xin">堅</span><span class="hi-yi">毅</span>之志，藉<span class="hi-gu">鼓</span>藝傳<span class="hi-ming">善</span>
+    </div>
+  </div>
+  <div style="font-size:11px; letter-spacing:3px; color:var(--ash); margin-top:12px; text-align:center;">
+    ↑ 四字品牌名藏於標語之中
+  </div>
+  <div class="cover-divider" style="height:40px;"></div>
+  <div class="doc-title">視覺識別 · 品牌定位 · 應用規範</div>
+  <div class="scroll-hint">
+    <div class="scroll-label">向下瀏覽</div>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ═══ 01 SLOGAN ═══ -->
+<div class="section">
+  <div class="section-number">01 · SLOGAN</div>
+  <div class="section-title">品牌標語</div>
+  <p class="section-intro">標語是品牌的靈魂宣言。「毅心鳴鼓」四個字藏於標語之中，讓每一次書寫標語，都同時呼喚出品牌的名字。</p>
+
+  <div class="slogan-hero">
+    <div class="slogan-tag">BRAND SLOGAN · 品牌標語</div>
+    <div class="slogan-main-zh">
+      懷<span class="slogan-highlight-gold">堅</span><span class="slogan-highlight-red">毅</span>之志，藉<span class="slogan-highlight-gold">鼓</span>藝傳<span class="slogan-highlight-red">善</span>
+    </div>
+    <div class="slogan-en">With resolute heart, we spread goodness through the art of drum.</div>
+  </div>
+
+  <div class="hidden-chars-panel">
+    <div class="hc-card">
+      <div class="hc-char hc-char-red">毅</div>
+      <div class="hc-arrow">藏於</div>
+      <div class="hc-source">堅<span class="em">毅</span>之志</div>
+      <div class="hc-meaning">意志的強韌<br>不被挫折擊倒</div>
+    </div>
+    <div class="hc-card">
+      <div class="hc-char hc-char-gold">心</div>
+      <div class="hc-arrow">藏於</div>
+      <div class="hc-source">懷（<span class="em-gold">忄</span>）</div>
+      <div class="hc-meaning">懷字含心部<br>一切源於內心</div>
+    </div>
+    <div class="hc-card">
+      <div class="hc-char hc-char-red">鳴</div>
+      <div class="hc-arrow">藏於</div>
+      <div class="hc-source">傳<span class="em">善</span>（鳴響）</div>
+      <div class="hc-meaning">聲名遠播<br>善念的共鳴傳遞</div>
+    </div>
+    <div class="hc-card">
+      <div class="hc-char hc-char-gold">鼓</div>
+      <div class="hc-arrow">藏於</div>
+      <div class="hc-source"><span class="em-gold">鼓</span>藝</div>
+      <div class="hc-meaning">鼓是媒介<br>藝術是語言</div>
+    </div>
+  </div>
+
+  <div style="margin-top:2px; padding:28px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;">標語使用說明</div>
+    <div style="font-size:13px;line-height:2.2;color:var(--ash);">
+      主標語全文「懷堅毅之志，藉鼓藝傳善」用於正式場合：節目單、官網首頁、橫幅、印章。<br>
+      可縮短為「藉鼓藝傳善」用於社群貼文、票券副標。<br>
+      英文版「With resolute heart, we spread goodness through the art of drum.」用於國際演出及雙語文宣。
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 02 BRAND PHILOSOPHY ═══ -->
+<div class="section">
+  <div class="section-number">02 · PHILOSOPHY</div>
+  <div class="section-title">品牌哲學：永不停息的正循環</div>
+  <p class="section-intro">「毅心鳴鼓」不只是一個名字，更是一套行動哲學。三個元素構成一個永恆的善念循環——心態驅動藝術，藝術傳遞善念，善念回饋世界，再次滋養心態。</p>
+
+  <div class="cycle-flow">
+    <div class="cycle-node">
+      <div class="cycle-node-label">心態 · MINDSET</div>
+      <div class="cycle-node-char red">毅心</div>
+      <div class="cycle-node-zh">堅毅之心<br>永不停歇的<br>內在驅動力</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="cycle-node-label">產品 · MEDIUM</div>
+      <div class="cycle-node-char gold">鼓</div>
+      <div class="cycle-node-zh">鼓藝為媒介<br>多元表演形式<br>鼓・舞・劇</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="cycle-node-label">行動 · ACTION</div>
+      <div class="cycle-node-char red">鳴</div>
+      <div class="cycle-node-zh">傳善於世<br>善念回饋社會<br>共鳴無止境</div>
+    </div>
+    <div class="cycle-loop">∞</div>
+  </div>
+
+  <div style="margin-top:2px; padding:32px; background:rgba(192,57,43,0.04); border:1px solid rgba(192,57,43,0.15); text-align:center;">
+    <div style="font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:16px;">品牌核心精神</div>
+    <div style="font-family:'Noto Serif TC',serif;font-size:clamp(16px,2.5vw,22px);font-weight:700;color:var(--white);letter-spacing:0.15em;line-height:1.9;">
+      以堅毅之心，藉藝術為橋，<br>
+      <span style="color:var(--vermillion);">將善念傳遞至每一個被鼓聲觸動的角落。</span>
+    </div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--ash);margin-top:16px;letter-spacing:0.2em;">
+      A cycle of goodness — from the heart, through the drum, into the world.
+    </div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <div style="font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:20px;">品牌構成公式對照</div>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-brand">借鑒參考 · 女兒不懂茶</div>
+        <div class="compare-formula">
+          <span>角色</span><span class="plus">+</span><span>心態</span><span class="plus">+</span><span>產品</span>
+        </div>
+        <div class="compare-formula" style="font-size:20px;">
+          女兒<span class="plus">+</span>不懂<span class="plus">+</span>茶
+        </div>
+        <div class="compare-desc">以「不懂」這個謙遜心態作為核心，女兒的身份帶來親切感，茶是載體。成功在於心態的真實與反差。</div>
+      </div>
+      <div class="compare-card" style="border-color:rgba(192,57,43,0.2); background:rgba(192,57,43,0.04);">
+        <div class="compare-brand" style="color:var(--vermillion);">毅心鳴鼓 · 我們的公式</div>
+        <div class="compare-formula">
+          <span>心態</span><span class="plus">+</span><span>產品</span><span class="plus">+</span><span>行動</span>
+        </div>
+        <div class="compare-formula" style="font-size:20px;">
+          <span class="red">毅心</span><span class="plus">+</span><span class="gold">鼓</span><span class="plus">+</span><span class="red">鳴</span>
+        </div>
+        <div class="compare-desc">心態在前，行動收尾，鼓是工具而非目的。「鳴」代表行動的意義——不只是表演，而是傳善。這讓品牌有了使命感與無限延伸的可能。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 03 NAMING ═══ -->
+<div class="section">
+  <div class="section-number">03 · NAMING</div>
+  <div class="section-title">品牌命名深度解析</div>
+  <p class="section-intro">四字皆有所本，每一個字都對應品牌哲學的一個面向，同時藏身於品牌標語之中。</p>
+
+  <div class="name-card clearfix">
+    <div class="name-char">毅</div>
+    <div class="name-meaning">堅毅 · 意志的鋼鐵</div>
+    <div class="name-desc">成員面對挑戰時的精神韌性。毅不是無情的硬，而是即使柔軟、仍不放棄的力量。這是整個正循環的起點——沒有這份心，一切都無從開始。</div>
+    <div class="name-slogan-link">藏於標語：懷堅<span>毅</span>之志</div>
+  </div>
+
+  <div class="name-card clearfix" style="border-left-color:var(--gold-light);">
+    <div class="name-char gold">心</div>
+    <div class="name-meaning">心部 · 忄 · 一切的源頭</div>
+    <div class="name-desc">「懷」字含忄（心部），意即心的力量隱藏在行動之中。心不需要大聲宣告，它是看不見的驅動力——所有成員共同懷抱的善念與初心。</div>
+    <div class="name-slogan-link">藏於標語：<span>懷</span>（忄字部）堅毅之志</div>
+  </div>
+
+  <div class="name-card clearfix">
+    <div class="name-char">鳴</div>
+    <div class="name-meaning">共鳴 · 傳善 · 聲名遠播</div>
+    <div class="name-desc">聲音的傳遞不只是物理現象，更是情感與善意的擴散。鳴對應「傳善」——每一次表演都是一次發聲，讓善念從舞台流向觀眾，再擴散至社會。</div>
+    <div class="name-slogan-link">藏於標語：藉鼓藝傳<span>善</span>（鳴之義）</div>
+  </div>
+
+  <div class="name-card clearfix" style="border-left-color:var(--gold-light);">
+    <div class="name-char gold">鼓</div>
+    <div class="name-meaning">鼓藝 · 媒介 · 鼓動人心</div>
+    <div class="name-desc">鼓是品牌的核心媒介，但不是唯一。鼓延伸出舞、劇、聲，成為多元表演的象徵。同時「鼓」也是動詞——鼓勵、鼓動、鼓舞——代表品牌對觀眾的主動影響力。</div>
+    <div class="name-slogan-link">藏於標語：藉<span>鼓</span>藝傳善</div>
+  </div>
+
+  <div style="margin-top:24px; padding:24px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;">英文全名建議</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-style:italic;color:var(--white);">Yi Xin Ming Gu Performing Arts</div>
+    <div style="font-size:12px;color:var(--ash);margin-top:8px;line-height:2;">縮寫可用 YXMG · 非正式場合可用「毅心鳴鼓」· 英文口頭可簡稱 Ming Gu Arts</div>
+  </div>
+</div>
+
+<!-- ═══ 04 POSITIONING ═══ -->
+<div class="section">
+  <div class="section-number">04 · POSITIONING</div>
+  <div class="section-title">品牌定位</div>
+  <p class="section-intro">清楚的定位讓品牌在面對每一個決策時有所依據——要不要接這個演出？這個設計夠不夠符合我們？這句文案像我們說話的方式嗎？</p>
+
+  <div class="position-grid">
+    <div class="position-card">
+      <div class="position-icon">🎯</div>
+      <div class="position-label">MISSION · 使命</div>
+      <div class="position-value">藉鼓藝傳善</div>
+      <div class="position-desc">以多元表演為媒介，讓善念在每一次演出後在觀眾心中生根，再透過觀眾回饋至社會</div>
+    </div>
+    <div class="position-card">
+      <div class="position-icon">✨</div>
+      <div class="position-label">VISION · 願景</div>
+      <div class="position-value">善念無止境的正循環</div>
+      <div class="position-desc">不只是演出，而是建立一個以表演藝術為核心的善念傳播網絡，讓影響力持續擴大</div>
+    </div>
+    <div class="position-card">
+      <div class="position-icon">🔄</div>
+      <div class="position-label">VALUES · 核心價值</div>
+      <div class="position-value">毅 · 心 · 鳴 · 鼓</div>
+      <div class="position-desc">堅毅之心→藝術實踐→傳遞善念。三者缺一不可，共同構成永不停歇的行動哲學</div>
+    </div>
+    <div class="position-card">
+      <div class="position-icon">🎭</div>
+      <div class="position-label">STYLE · 表演形式</div>
+      <div class="position-value">鼓・舞・劇 多元融合</div>
+      <div class="position-desc">以鼓為根，延伸至舞蹈與劇場。形式服務於傳善的目的，永遠保持開放與進化</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 05 COLOR ═══ -->
+<div class="section">
+  <div class="section-number">05 · COLOR</div>
+  <div class="section-title">品牌配色系統</div>
+  <p class="section-intro">配色以「朱墨金煙」為概念——承載傳統文化底蘊，同時具備當代視覺力量。朱紅對應「毅」的熱血，墨黑對應「心」的深度，沉金對應「鳴」的質感，宣紙對應「鼓」的溫潤。</p>
+
+  <div class="color-palette">
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#C0392B;">
+        <div class="swatch-role">PRIMARY</div>
+      </div>
+      <div class="swatch-info">
+        <div class="swatch-name">朱紅 · Vermillion</div>
+        <div class="swatch-hex">#C0392B</div>
+        <div class="swatch-meaning">主色。對應「毅」——熱血、力量、行動。Logo及主要強調色。</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#1A1208;">
+        <div class="swatch-role" style="color:rgba(255,255,255,0.3)">BASE</div>
+      </div>
+      <div class="swatch-info">
+        <div class="swatch-name">墨黑 · Ink</div>
+        <div class="swatch-hex">#1A1208</div>
+        <div class="swatch-meaning">底色。對應「心」——深沉、包容、沉靜的內在世界。</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#B8922A;">
+        <div class="swatch-role">ACCENT</div>
+      </div>
+      <div class="swatch-info">
+        <div class="swatch-name">沉金 · Gold</div>
+        <div class="swatch-hex">#B8922A</div>
+        <div class="swatch-meaning">點綴色。對應「鳴」——聲名遠播的質感與尊貴。</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#F5EDD8;">
+        <div class="swatch-role" style="color:rgba(26,18,8,0.5)">LIGHT</div>
+      </div>
+      <div class="swatch-info">
+        <div class="swatch-name">宣紙 · Parchment</div>
+        <div class="swatch-hex">#F5EDD8</div>
+        <div class="swatch-meaning">對應「鼓」——溫潤、自然，鼓皮的質地聯想。</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#6B6357;">
+        <div class="swatch-role">NEUTRAL</div>
+      </div>
+      <div class="swatch-info">
+        <div class="swatch-name">煙灰 · Ash</div>
+        <div class="swatch-hex">#6B6357</div>
+        <div class="swatch-meaning">輔助色。說明文字、標籤。讓主色更突出。</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px; padding:24px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;">使用比例建議 COLOR RATIO</div>
+    <div style="display:flex;gap:0;height:10px;border-radius:2px;overflow:hidden;margin-bottom:12px;">
+      <div style="width:10%;background:#C0392B;"></div>
+      <div style="width:60%;background:#1A1208;"></div>
+      <div style="width:10%;background:#B8922A;"></div>
+      <div style="width:20%;background:#F5EDD8;"></div>
+    </div>
+    <div style="font-size:12px;color:var(--ash);line-height:2;">朱紅 10% · 墨黑 60% · 沉金 10% · 宣紙 20%</div>
+  </div>
+</div>
+
+<!-- ═══ 06 TYPOGRAPHY ═══ -->
+<div class="section">
+  <div class="section-number">06 · TYPOGRAPHY</div>
+  <div class="section-title">品牌字體規範</div>
+
+  <div class="type-specimen">
+    <div class="type-label">中文主字體 · 思源宋體 Noto Serif TC</div>
+    <div class="type-sample-zh-display">毅心鳴鼓表演藝術團</div>
+    <div class="type-sample-zh-body">懷堅毅之志，藉鼓藝傳善。每一聲擊響，都是心與世界的對話。</div>
+    <div class="type-meta">用途：標題、Logo文字、標語、節目名稱 · 字重：Bold 標題 / Regular 內文 · Google Fonts 免費</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-label">英文字體 · Cormorant Garamond Italic</div>
+    <div class="type-sample-en">With resolute heart, we spread goodness.</div>
+    <div class="type-meta">用途：英文品牌名、標語、裝飾性文字 · 斜體為主，呼應表演的流動感 · Google Fonts 免費</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-label">內文字體 · 思源黑體 Noto Sans TC Light</div>
+    <div style="font-family:'Noto Sans TC',sans-serif;font-size:14px;color:var(--parchment-dark);line-height:2.3;font-weight:300;">
+      毅心鳴鼓表演藝術團，以堅毅之心藉鼓藝傳善。我們相信每一次演出都是一個正循環的起點，善念從舞台出發，透過觀眾的心，回饋至這片土地。
+    </div>
+    <div class="type-meta">用途：說明文字、宣傳文案、社群內文 · 字重：Light 300</div>
+  </div>
+</div>
+
+<!-- ═══ 07 LOGO ═══ -->
+<div class="section">
+  <div class="section-number">07 · LOGO</div>
+  <div class="section-title">Logo 設計方向</div>
+  <p class="section-intro">Logo設計需承載品牌哲學——堅毅、循環、傳善。以下三個方向各有側重，建議委託設計師精製。</p>
+
+  <div class="logo-grid">
+    <div class="logo-concept">
+      <div class="logo-concept-num">方向 A</div>
+      <div class="logo-visual">
+        <div class="logo-a"></div>
+      </div>
+      <div class="logo-concept-name">圓印鼓心</div>
+      <div class="logo-concept-desc">圓形象徵正循環與圓滿，中置「鼓」字，外圍排列品牌全名或標語。古典印章感，傳遞傳統藝術的底蘊。</div>
+    </div>
+
+    <div class="logo-concept">
+      <div class="recommended-badge">推薦</div>
+      <div class="logo-concept-num">方向 B</div>
+      <div class="logo-visual">
+        <div class="logo-b">
+          <div class="logo-b-text">毅心<br>鳴鼓</div>
+        </div>
+      </div>
+      <div class="logo-concept-name">六角朱印</div>
+      <div class="logo-concept-desc">六角形對應傳統紋樣與鼓面的幾何感，朱紅底白字，力量感強。舞台背板、服裝、周邊皆適用，呼應「毅」的剛毅精神。</div>
+    </div>
+
+    <div class="logo-concept">
+      <div class="logo-concept-num">方向 C</div>
+      <div class="logo-visual">
+        <div class="logo-c">
+          <div class="logo-c-main"><span>毅心</span>鳴鼓</div>
+          <div class="logo-c-line"></div>
+          <div class="logo-c-sub">懷堅毅之志，藉鼓藝傳善</div>
+        </div>
+      </div>
+      <div class="logo-concept-name">文字標誌含標語</div>
+      <div class="logo-concept-desc">品牌名與標語並置的橫式設計，標語直接融入Logo系統，讓每次出現品牌都同時傳達核心精神。現代感強，適合數位場景。</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:12px;">設計完稿需包含</div>
+    <div style="font-size:13px;line-height:2.2;color:var(--ash);">
+      橫式 / 直式 / 印章簡化版 三種排版 ·
+      深色背景版 / 淺色背景版 雙版本 ·
+      向量檔 .ai / .svg / .eps ·
+      建議預算 NT$10,000–30,000
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 APPLICATION ═══ -->
+<div class="section">
+  <div class="section-number">08 · APPLICATION</div>
+  <div class="section-title">品牌應用範例</div>
+
+  <div class="mockup-grid">
+    <div class="mockup-card">
+      <div class="mockup-preview" style="background:#111;">
+        <div class="mockup-namecard">
+          <div>
+            <div class="mc-name">王小明</div>
+            <div class="mc-title">藝術總監 · ARTISTIC DIRECTOR</div>
+          </div>
+          <div>
+            <div class="mc-org">毅心鳴鼓表演藝術團</div>
+            <div class="mc-slogan">懷堅毅之志，藉鼓藝傳善</div>
+          </div>
+          <div class="mc-seal">毅</div>
+        </div>
+      </div>
+      <div class="mockup-label">
+        <div class="mockup-label-title">名片 Business Card</div>
+        <div class="mockup-label-desc">左朱紅線，標語置於名片背面或底部，印章以「毅」字為記。</div>
+      </div>
+    </div>
+
+    <div class="mockup-card">
+      <div class="mockup-preview" style="background:#0D0D0D;">
+        <div class="mockup-poster">
+          <div class="poster-top-line"></div>
+          <div class="poster-label">2025 年度公演</div>
+          <div class="poster-title"><span>毅心</span>鳴鼓</div>
+          <div class="poster-divider"></div>
+          <div class="poster-slogan">懷堅<span>毅</span>之志<br>藉鼓藝傳善</div>
+          <div class="poster-date">2025.12.25 · 台北</div>
+        </div>
+      </div>
+      <div class="mockup-label">
+        <div class="mockup-label-title">演出海報 Performance Poster</div>
+        <div class="mockup-label-desc">標語作為視覺副標出現在品牌名下方，強化每次曝光的品牌哲學傳達。</div>
+      </div>
+    </div>
+
+    <div class="mockup-card">
+      <div class="mockup-preview" style="background:#1A1A1A;">
+        <div class="mockup-tshirt-preview">
+          <div class="tshirt-logo">
+            <div class="tshirt-zh"><span>毅心</span>鳴鼓</div>
+            <div class="tshirt-line"></div>
+            <div class="tshirt-slogan">懷堅毅之志<br>藉鼓藝傳善</div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-label">
+        <div class="mockup-label-title">團服 / 周邊 Merchandise</div>
+        <div class="mockup-label-desc">標語繡於胸口或領口內側，成為只有成員知道的「內在宣言」。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 09 TONE ═══ -->
+<div class="section">
+  <div class="section-number">09 · TONE OF VOICE</div>
+  <div class="section-title">品牌語調</div>
+  <p class="section-intro">標語確立了語調的基礎——「傳善」是目的，「堅毅之志」是態度。所有對外溝通都從這兩個支點出發。</p>
+
+  <div class="tone-grid">
+    <div class="tone-card">
+      <div class="tone-label tone-yes">✓ 我們這樣說話</div>
+      <div class="tone-item">有力而溫柔</div>
+      <div class="tone-item">傳遞善念，而非炫技</div>
+      <div class="tone-item">謙遜但不失自信</div>
+      <div class="tone-item">邀請共鳴，而非宣告</div>
+      <div class="tone-item">讓觀眾感受到被善意擊中</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-label tone-no">✗ 我們不這樣說話</div>
+      <div class="tone-item">過度商業促銷感</div>
+      <div class="tone-item">冷漠的機構式語言</div>
+      <div class="tone-item">賣弄技術或專業術語</div>
+      <div class="tone-item">自我吹捧的口吻</div>
+      <div class="tone-item">無目的的熱血，空洞的勵志</div>
+    </div>
+  </div>
+
+  <div style="margin-top:2px;padding:28px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:16px;">社群文案示範</div>
+    <div style="font-size:14px;line-height:2.4;color:var(--parchment-dark);">
+      「每一次排練，我們不是在追求完美。<br>
+      我們在問自己：這一擊，能不能傳到更遠的地方？<br>
+      <span style="color:var(--vermillion);">#毅心鳴鼓</span> <span style="color:var(--gold);">#懷堅毅之志藉鼓藝傳善</span>」
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 10 REGISTRATION ═══ -->
+<div class="section">
+  <div class="section-number">10 · NEXT STEPS</div>
+  <div class="section-title">正式化步驟清單</div>
+
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-num">01</div>
+      <div class="check-content">
+        <div class="check-title">商標查詢與申請</div>
+        <div class="check-desc">至經濟部智慧財產局查詢「毅心鳴鼓」是否已被申請。確認無衝突後，申請第41類（教育娛樂表演服務）商標。費用約 NT$3,000–6,000，審查12–18個月。</div>
+        <div><span class="check-tag tag-urgent">優先處理</span></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-num">02</div>
+      <div class="check-content">
+        <div class="check-title">委託設計師製作Logo向量檔</div>
+        <div class="check-desc">依據本文件選定Logo方向，委託設計師精製 .ai / .svg 向量檔。Logo確定後可進行商標圖樣申請。</div>
+        <div><span class="check-tag tag-urgent">優先處理</span></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-num">03</div>
+      <div class="check-content">
+        <div class="check-title">社群帳號統一更名</div>
+        <div class="check-desc">IG、FB、YouTube、Line 等全平台統一更名為「毅心鳴鼓」。帳號ID建議統一為 yixinminggu 或 minggu.arts。</div>
+        <div><span class="check-tag tag-medium">近期處理</span></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-num">04</div>
+      <div class="check-content">
+        <div class="check-title">演藝事業或人民團體立案</div>
+        <div class="check-desc">若計畫對外收費演出，至縣市政府文化局申請「演藝事業登記」；若以非營利推廣善念為主，可考慮登記為「人民團體（藝文類）」。建議先諮詢文化局。</div>
+        <div><span class="check-tag tag-medium">近期處理</span></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-num">05</div>
+      <div class="check-content">
+        <div class="check-title">製作品牌手冊 PDF</div>
+        <div class="check-desc">將本文件整合為正式品牌手冊，供設計委外、合作單位、新成員參考。可用Canva製作或請設計師排版。</div>
+        <div><span class="check-tag tag-later">後續推進</span></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-num">06</div>
+      <div class="check-content">
+        <div class="check-title">建立獨立官方網站</div>
+        <div class="check-desc">申請網域（建議 minggu.art 或 yixinminggu.com），以新品牌視覺重建官網。首頁主視覺建議以標語「懷堅毅之志，藉鼓藝傳善」為核心呈現。</div>
+        <div><span class="check-tag tag-later">後續推進</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div class="footer-logo"><span>毅心</span>鳴鼓表演藝術團</div>
+  <div class="footer-slogan">懷<span class="hi-xin">堅</span><span class="hi-yi">毅</span>之志，藉<span class="hi-gu">鼓</span>藝傳<span class="hi-ming">善</span></div>
+  <div class="footer-en">With resolute heart, we spread goodness through the art of drum.</div>
+  <div style="width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 24px;"></div>
+  <div class="footer-note">品牌識別系統 · BRAND IDENTITY SYSTEM · 2025</div>
+  <div style="font-size:11px;color:rgba(107,99,87,0.4);margin-top:10px;letter-spacing:2px;">本文件為品牌策略方向建議，實際設計執行請委託專業設計師完成</div>
+</div>
+
+</body>
+</html>
